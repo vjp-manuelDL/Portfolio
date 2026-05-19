@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Recurse \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\")",
+      "Bash(Select-Object FullName, Extension, Length)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\public\" -Recurse -File | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\" -File | Where-Object { $_.Extension -match \"\\\\.\\(jpg|jpeg|png|gif|webp|svg\\)\" } | Select-Object Name, Length | Sort-Object Name)",
+      "PowerShell(Copy-Item *)",
+      "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\.next\" -ErrorAction SilentlyContinue)",
+      "Bash(Write-Host \"Cache cleared\")",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\\" -Force | ForEach-Object { \"$\\($_.Name\\) [$\\($_.Attributes\\)]\" })",
+      "PowerShell(Invoke-WebRequest -Uri \"https://obrasyreformasaaron.com/wp-content/uploads/2025/03/logoeuropa.png\" -OutFile \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\public\\\\images\\\\logoeuropa.png\" -TimeoutSec 30)",
+      "PowerShell(Invoke-WebRequest -Uri \"https://obrasyreformasaaron.com/wp-content/uploads/2025/03/logoplanrecuperacion.png\" -OutFile \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\public\\\\images\\\\logoplanrecuperacion.png\" -TimeoutSec 30)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\public\\\\images\\\\portfolio\" -Recurse -File | Select-Object Name, @{N='KB';E={[math]::Round\\($_.Length/1KB\\)}} | Sort-Object KB -Descending)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\public\\\\images\\\\services\" -File | Select-Object Name, @{N='KB';E={[math]::Round\\($_.Length/1KB\\)}} | Sort-Object KB -Descending)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\public\\\\images\" -Recurse | ForEach-Object { $_.FullName.Replace\\(\"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\public\\\\images\\\\\", \"\"\\) })",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\public\\\\images\\\\hero\" | Select-Object Name, @{N=\"SizeKB\";E={[math]::Round\\($_.Length/1KB,1\\)}})",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\public\\\\images\\\\services\" | Select-Object Name, @{N=\"SizeKB\";E={[math]::Round\\($_.Length/1KB,1\\)}})",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Manue\\\\Tests\\\\PaginaWeb_1\\\\frontend\\\\public\\\\images\" -Recurse -File | Select-Object Name, @{N=\"SizeKB\";E={[math]::Round\\($_.Length/1KB,1\\)}} | Sort-Object SizeKB -Descending | Select-Object -First 20)",
+      "Bash(xargs ls -la)",
+      "Bash(sort -k5 -rn)",
+      "mcp__ide__getDiagnostics",
+      "Bash(Write-Host \"Cache limpiado\")"
+    ]
+  }
+}

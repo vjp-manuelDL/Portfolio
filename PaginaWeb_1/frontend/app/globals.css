@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-navy:      #1B4F8C;
+  --color-navy-dark: #0F3460;
+  --color-navy-light:#2A6AB3;
+  --color-page:      #F5F3EF;
+  --color-page-alt:  #E8E4DC;
+  --color-dark:      #1A1A2E;
+  --color-mid:       #4B5563;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F5F3EF;
+  color: #1A1A2E;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Grid decorativo de fondo (secciones con blueprint-grid) */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(27, 79, 140, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 79, 140, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Links de navbar sobre fondo oscuro (hero) */
+.neon-link {
+  position: relative;
+  color: rgba(244, 244, 245, 0.9);
+  transition: color 0.2s;
+}
+
+.neon-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 1px;
+  width: 0;
+  background-color: #00f2ff;
+  transition: width 0.3s;
+}
+
+.neon-link:hover {
+  color: #00f2ff;
+}
+
+.neon-link:hover::after {
+  width: 100%;
+}
+
+/* Links de navbar sobre fondo claro (al hacer scroll) */
+.nav-link-light {
+  position: relative;
+  color: rgba(26, 26, 46, 0.8);
+  transition: color 0.2s;
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nav-link-light::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #1B4F8C;
+  border-radius: 9999px;
+  transition: width 0.3s;
+}
+
+.nav-link-light:hover,
+.nav-link-light.text-navy {
+  color: #1B4F8C;
+}
+
+.nav-link-light:hover::after {
+  width: 100%;
+}
+
+/* LogoLoader progress bar */
+@keyframes progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Shimmer skeleton */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
