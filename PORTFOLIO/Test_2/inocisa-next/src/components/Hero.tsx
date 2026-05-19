@@ -2,8 +2,24 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Star } from "lucide-react";
+import { useRef, useEffect } from "react";
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const handleTimeUpdate = () => {
+      if (video.duration && video.currentTime >= video.duration - 0.01) {
+        video.currentTime = 0;
+        video.play();
+      }
+    };
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
+  }, []);
+
   return (
     <section
       id="inicio"
@@ -92,15 +108,15 @@ export default function Hero() {
         {/* Contenedor del vídeo con aspect-ratio fijo */}
         <div
           className="relative w-full max-w-[580px] rounded-[28px] overflow-hidden shadow-2xl shadow-blue-200/50"
-          style={{ aspectRatio: "16 / 10", border: "1px solid rgba(255,255,255,0.7)" }}
+          style={{ aspectRatio: "16 / 9", border: "1px solid rgba(255,255,255,0.7)" }}
         >
           {/* Shimmer superior */}
           <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/80 to-transparent z-10 pointer-events-none" />
 
           {/* Vídeo — posición absoluta para rellenar el contenedor */}
           <video
+            ref={videoRef}
             autoPlay
-            loop
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover"

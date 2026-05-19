@@ -31,9 +31,9 @@ export default function Navbar() {
         className="sticky top-[30px] z-50 w-full flex justify-center"
       >
         <div
-          className="flex items-center gap-6 md:gap-8 px-5 md:px-7 py-3 rounded-2xl w-fit max-w-[95vw] transition-all duration-300"
+          className="flex items-center gap-16 md:gap-20 px-24 md:px-36 py-0 rounded-2xl w-fit max-w-[95vw] transition-all duration-300"
           style={{
-            background: "rgba(255,255,255,0.30)",
+            background: "rgba(195,215,245,0.45)",
             backdropFilter: "blur(50px)",
             WebkitBackdropFilter: "blur(50px)",
             border: "1px solid rgba(0,0,0,0.10)",
@@ -42,15 +42,15 @@ export default function Navbar() {
               : "inset 0px 4px 4px rgba(255,255,255,0.25), 0 10px 30px -10px rgba(0,0,0,0.05)",
           }}
         >
-          {/* Logo — 2.5× original */}
+          {/* Logo */}
           <a href="#" className="flex items-center shrink-0">
-            <div className="relative w-[180px] h-[58px] md:w-[240px] md:h-[78px]">
+            <div className="relative w-[74px] h-[64px] md:w-[95px] md:h-[85px] overflow-hidden">
               <Image
                 src="/logo_noBG.png"
                 alt="Inocisa"
                 fill
-                sizes="(max-width: 768px) 180px, 240px"
-                className="object-contain"
+                sizes="(max-width: 768px) 74px, 95px"
+                className="object-contain scale-[1.13]"
                 priority
               />
             </div>
@@ -62,7 +62,7 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="relative text-[15px] font-medium text-slate-900 hover:text-[#319AFF] transition-colors duration-200 group"
+                className="relative text-[16.5px] font-medium text-slate-900 hover:text-[#319AFF] transition-colors duration-200 group"
               >
                 {link.label}
                 <span className="absolute -bottom-0.5 left-0 w-0 h-[2px] bg-[#319AFF] rounded-full transition-all duration-300 group-hover:w-full" />
@@ -73,7 +73,7 @@ export default function Navbar() {
           {/* CTA desktop */}
           <a
             href="#contacto"
-            className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-[15px] text-slate-900 transition-all hover:-translate-y-[1px] shrink-0"
+            className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-[16.5px] text-slate-900 transition-all hover:-translate-y-[1px] shrink-0"
             style={{
               background: "rgba(255,255,255,0.4)",
               border: "1px solid rgba(255,255,255,0.5)",
