@@ -1,0 +1,19 @@
+@(
+# Next.js / Node
+node_modules/
+.next/
+out/
+build/
+
+# Django / Python
+__pycache__/
+*.pyc
+.venv/
+env/
+venv/
+ENV/
+.env
+
+# Sistema
+.DS_Store
+)
