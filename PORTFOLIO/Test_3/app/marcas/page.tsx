@@ -61,6 +61,8 @@ export default function BrandsPage() {
                 <img
                   src={brand.src}
                   alt={brand.name}
+                  loading="lazy"
+                  decoding="async"
                   className="max-h-14 max-w-full object-contain transition duration-300 group-hover:scale-105"
                 />
               </article>

@@ -20,6 +20,15 @@ import { brands } from "@/lib/brands";
 
 const phone = "927 42 24 03";
 const email = "inclima@inclimaplasencia.es";
+const businessHours = [
+  ["Lunes", "9:00-14:00, 16:00-19:00"],
+  ["Martes", "9:00-14:00, 16:00-19:00"],
+  ["Miercoles", "9:00-14:00, 16:00-19:00"],
+  ["Jueves", "9:00-14:00, 16:00-19:00"],
+  ["Viernes", "9:00-14:00, 16:00-19:00"],
+  ["Sabado", "Cerrado"],
+  ["Domingo", "Cerrado"]
+];
 
 const services = [
   {
@@ -204,7 +213,7 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
         />
         <span>
           Acepto que Inclima Plasencia use estos datos para responder a mi consulta. Puedes revisar la{" "}
-          <a className="font-semibold text-[#0a1b33] underline" href="/politica-de-privacidad">
+          <a className="font-semibold text-[#0a1b33] underline transition-colors hover:text-[#7dd3fc]" href="/politica-de-privacidad">
             politica de privacidad
           </a>
           .
@@ -214,7 +223,7 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
       <motion.button
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0a152d] px-6 py-3 text-sm font-semibold text-white"
+        className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0a152d] px-6 py-3 text-sm font-semibold text-white transition-colors hover:text-[#7dd3fc]"
       >
         Enviar consulta <ArrowRight className="h-4 w-4" />
       </motion.button>
@@ -243,26 +252,28 @@ function Field({
 
 function Header() {
   return (
-    <header className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-5">
-      <a href="#" className="flex items-center gap-3">
-        <img src="/assets/Index/inclima_logo.png" alt="Inclima Plasencia" className="h-11 w-auto" />
-      </a>
-      <nav className="hidden items-center gap-8 text-sm font-semibold text-slate-600 md:flex">
-        <a href="#servicios" className="hover:text-[#0a1b33]">Servicios</a>
-        <a href="#marcas" className="hover:text-[#0a1b33]">Marcas</a>
-        <a href="#contacto" className="hover:text-[#0a1b33]">Contacto</a>
-      </nav>
-      <div className="hidden items-center gap-3 md:flex">
-        <a href={`tel:${phone.replaceAll(" ", "")}`} className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-[#0a1b33] shadow-sm">
-          {phone}
+    <header className="sticky top-0 z-50 bg-[#f9fafb]/95 backdrop-blur-sm border-b border-slate-200/40">
+      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-5">
+        <a href="#" className="flex items-center gap-3">
+          <img src="/assets/Index/inclima_logo.png" alt="Inclima Plasencia" className="h-11 w-auto" />
         </a>
-        <a href="#contacto" className="rounded-full bg-[#0a152d] px-5 py-2.5 text-sm font-semibold text-white">
-          Presupuesto
-        </a>
+        <nav className="hidden items-center gap-8 text-sm font-semibold text-slate-600 md:flex">
+          <a href="#servicios" className="hover:text-[#7dd3fc]">Servicios</a>
+          <a href="#marcas" className="hover:text-[#7dd3fc]">Marcas</a>
+          <a href="#contacto" className="hover:text-[#7dd3fc]">Contacto</a>
+        </nav>
+        <div className="hidden items-center gap-3 md:flex">
+          <a href={`tel:${phone.replaceAll(" ", "")}`} className="rounded-full bg-[#0a152d] px-4 py-2 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200">
+            {phone}
+          </a>
+          <a href="#contacto" className="rounded-full bg-[#0a152d] px-5 py-2.5 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200">
+            Presupuesto
+          </a>
+        </div>
+        <button className="rounded-full border border-slate-200 bg-white p-3 md:hidden" aria-label="Abrir menu">
+          <Menu className="h-5 w-5" />
+        </button>
       </div>
-      <button className="rounded-full border border-slate-200 bg-white p-3 md:hidden" aria-label="Abrir menu">
-        <Menu className="h-5 w-5" />
-      </button>
     </header>
   );
 }
@@ -273,11 +284,13 @@ function Hero() {
       <div className="relative w-full max-w-[1400px] mx-auto rounded-[48px] bg-white border border-slate-200/50 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.03)] overflow-hidden h-[600px] flex flex-col">
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
           <video
-            src="/assets/Video_Index.mp4"
+            src="/assets/Video_Index.webm"
+            poster="/assets/Index/hombre-sujetando-control-remoto-manos-ajustando-temperatura-aire-acondicionado-montado-aire-acondicionado.jpg"
             autoPlay
             loop
             muted
             playsInline
+            preload="metadata"
             className="w-full h-full object-cover scale-105 transition-transform duration-1000"
           />
         </div>
@@ -287,11 +300,11 @@ function Hero() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="z-20 flex-1 px-8 md:px-16 pt-12 md:pt-16 flex flex-col items-start"
         >
-          <img src="/assets/Index/inclima-negro.gif" alt="Inclima" className="mb-8 h-12 w-auto rounded bg-white/80 p-2" />
+          <img src="/assets/Index/inclima-negro.png" alt="Inclima" className="mb-8 h-12 w-auto rounded bg-white/80 p-2" />
           <h1 className="font-display text-[42px] md:text-[56px] font-medium tracking-tight text-[#0a1b33] leading-[0.96] max-w-3xl">
             Climatizacion eficiente<br />para Plasencia
           </h1>
-          <p className="font-sans text-[14px] md:text-[15px] text-[#64748b] mt-6 max-w-[520px] leading-7">
+          <p className="font-sans text-[14px] md:text-[15px] text-[#0a1b33] mt-6 max-w-[520px] leading-7 bg-white/20 rounded-2xl px-4 py-3">
             Instalamos, reparamos y mantenemos equipos de aire acondicionado y bombas de calor con asesoramiento claro, marcas fiables y atencion directa.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -299,11 +312,11 @@ function Hero() {
               href="#contacto"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.98 }}
-              className="rounded-full bg-[#0a152d] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/10"
+              className="rounded-full bg-[#0a152d] px-6 py-3 text-sm font-semibold text-[#7dd3fc] shadow-lg shadow-slate-900/10 transition-colors hover:text-sky-200"
             >
               Contactar ahora
             </motion.a>
-            <a href={`mailto:${email}`} className="rounded-full border border-slate-200 bg-white/90 px-6 py-3 text-sm font-semibold text-[#0a1b33]">
+            <a href={`mailto:${email}`} className="rounded-full bg-[#0a152d] px-6 py-3 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200">
               {email}
             </a>
           </div>
@@ -315,10 +328,9 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
             className="flex items-center bg-white/90 backdrop-blur-2xl px-1.5 py-1.5 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.08)] border border-slate-200/40"
           >
-            <span className="mr-1 flex w-9 h-9 items-center justify-center rounded-full bg-white border border-slate-100 shadow-sm text-[#0a1b33]">✦</span>
-            <a href="#servicios" className="px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#0a1b33]">Servicios</a>
-            <a href="/marcas" className="px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#0a1b33]">Marcas</a>
-            <a href="#contacto" className="ml-1 flex items-center gap-1 bg-white px-5 py-2 rounded-full text-[12px] font-semibold text-[#0a1b33] border border-slate-200/60 shadow-sm hover:border-slate-300 transition-all">
+            <a href="#servicios" className="px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]">Servicios</a>
+            <a href="/marcas" className="px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]">Marcas</a>
+            <a href="#contacto" className="ml-1 flex items-center gap-1 bg-white px-5 py-2 rounded-full text-[12px] font-semibold text-[#0a1b33] border border-slate-200/60 shadow-sm hover:border-slate-300 hover:text-[#7dd3fc] transition-all">
               Pedir presupuesto <ChevronRight className="h-3.5 w-3.5" />
             </a>
           </motion.nav>
@@ -339,7 +351,7 @@ function MarqueeScroller() {
             className="group relative h-24 w-40 shrink-0 flex items-center justify-center rounded-full bg-white border border-slate-200/60 shadow-sm hover:border-slate-300 transition-all overflow-hidden"
           >
             <div className="absolute inset-0 scale-150 bg-sky-100 opacity-0 transition duration-300 group-hover:scale-100 group-hover:opacity-100" />
-            <img src={brand.src} alt={brand.name} className="relative z-10 max-h-10 max-w-28 object-contain transition group-hover:scale-105" />
+            <img src={brand.src} alt={brand.name} loading="lazy" decoding="async" className="relative z-10 max-h-10 max-w-28 object-contain transition group-hover:scale-105" />
           </div>
         ))}
       </div>
@@ -367,7 +379,7 @@ export default function Home() {
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {services.map((service) => (
             <article key={service.title} className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm">
-              <img src={service.image} alt="" className="h-56 w-full object-cover" />
+              <img src={service.image} alt="" loading="lazy" decoding="async" className="h-56 w-full object-cover" />
               <div className="p-6">
                 <service.icon className="mb-5 h-7 w-7 text-[#0a1b33]" />
                 <h3 className="font-display text-2xl font-medium text-[#0a1b33]">{service.title}</h3>
@@ -380,8 +392,8 @@ export default function Home() {
       <section className="bg-white py-16">
         <div className="mx-auto grid max-w-[1200px] gap-8 px-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="grid grid-cols-2 gap-4">
-            <img src="/assets/Index/hombre-sujetando-control-remoto-manos-ajustando-temperatura-aire-acondicionado-montado-aire-acondicionado.jpg" alt="Control de climatizacion" className="h-72 w-full rounded-[28px] object-cover" />
-            <img src="/assets/Index/tecnico-aire-acondicionado-comprobando-funcionamiento-aire-acondicionado.jpg" alt="Tecnico revisando aire acondicionado" className="mt-10 h-72 w-full rounded-[28px] object-cover" />
+            <img src="/assets/Index/hombre-sujetando-control-remoto-manos-ajustando-temperatura-aire-acondicionado-montado-aire-acondicionado.jpg" alt="Control de climatizacion" loading="lazy" decoding="async" className="h-72 w-full rounded-[28px] object-cover" />
+            <img src="/assets/Index/tecnico-aire-acondicionado-comprobando-funcionamiento-aire-acondicionado.jpg" alt="Tecnico revisando aire acondicionado" loading="lazy" decoding="async" className="mt-10 h-72 w-full rounded-[28px] object-cover" />
           </div>
           <div>
             <h2 className="font-display text-4xl font-medium tracking-tight text-[#0a1b33]">Confort, consumo y garantia en la misma conversacion.</h2>
@@ -407,14 +419,14 @@ export default function Home() {
             <h2 className="font-display text-4xl font-medium tracking-tight text-[#0a1b33]">Marcas con las que trabaja Inclima</h2>
             <p className="mt-3 max-w-2xl text-slate-600">Equipos domesticos y profesionales de fabricantes reconocidos, para instalar, reparar o mantener con criterio tecnico.</p>
           </div>
-          <a href="/marcas" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#0a1b33] shadow-sm ring-1 ring-slate-200">
+          <a href="/marcas" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#0a1b33] shadow-sm ring-1 ring-slate-200 transition-colors hover:text-[#7dd3fc]">
             Consultar compatibilidad <ArrowRight className="h-4 w-4" />
           </a>
         </div>
         <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
           {featuredBrands.map((brand) => (
             <div key={brand.src} className="flex h-28 items-center justify-center rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm">
-              <img src={brand.src} alt={brand.name} className="max-h-12 max-w-full object-contain" />
+              <img src={brand.src} alt={brand.name} loading="lazy" decoding="async" className="max-h-12 max-w-full object-contain" />
             </div>
           ))}
         </div>
@@ -426,20 +438,20 @@ export default function Home() {
             Cuéntales que necesitas y deja tus datos. El formulario avisa si falta algo, marca errores en rojo y prepara el correo con toda la informacion.
           </p>
           <div className="mt-8 space-y-4 text-sm">
-            <a href={`tel:${phone.replaceAll(" ", "")}`} className="flex items-center gap-3 rounded-2xl bg-white/10 p-4">
+            <a href={`tel:${phone.replaceAll(" ", "")}`} className="flex items-center gap-3 rounded-2xl bg-white/10 p-4 transition-colors hover:text-[#7dd3fc]">
               <Phone className="h-5 w-5" /> {phone}
             </a>
-            <a href={`mailto:${email}`} className="flex items-center gap-3 rounded-2xl bg-white/10 p-4">
+            <a href={`mailto:${email}`} className="flex items-center gap-3 rounded-2xl bg-white/10 p-4 transition-colors hover:text-[#7dd3fc]">
               <Mail className="h-5 w-5" /> {email}
             </a>
             <div className="flex items-center gap-3 rounded-2xl bg-white/10 p-4">
               <MapPin className="h-5 w-5" /> Plasencia, Caceres
             </div>
             <div className="flex items-center gap-3 rounded-2xl bg-white/10 p-4">
-              <Clock className="h-5 w-5" /> Atencion directa para presupuestos y avisos
+              <Clock className="h-5 w-5" /> L-V 9:00-14:00 y 16:00-19:00
             </div>
           </div>
-          <img src="/assets/Contacto/mujer-joven-feliz-ojos-cerrados-sentado-sofa-aire-acondicionado-ajustando-temperatura-confortable-control-remoto-casa-moderna.jpg" alt="Confort en casa" className="mt-8 h-56 w-full rounded-[28px] object-cover" />
+          <img src="/assets/Contacto/mujer-joven-feliz-ojos-cerrados-sentado-sofa-aire-acondicionado-ajustando-temperatura-confortable-control-remoto-casa-moderna.jpg" alt="Confort en casa" loading="lazy" decoding="async" className="mt-8 h-56 w-full rounded-[28px] object-cover" />
         </div>
         <ContactForm />
       </section>
@@ -459,23 +471,32 @@ function Footer() {
           </p>
           <div className="mt-5 flex gap-3">
             <img src="/assets/Index/NEGROlogo-financiacion-ue-nextgenerationue.png" alt="Next Generation EU" className="h-10 w-auto object-contain" />
-            <img src="/assets/Index/NEGROlogo-plan-de-recuperacion-transformacion-y-resiliencia.png" alt="Plan de recuperacion" className="h-10 w-auto object-contain" />
+            <img src="/assets/Index/NEGROlogo-plan-de-recuperacion-transformacion-y-resiliencia.png" alt="Plan de recuperacion" loading="lazy" decoding="async" className="h-10 w-auto object-contain" />
           </div>
         </div>
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">Contacto</h3>
           <div className="mt-4 space-y-3 text-sm text-slate-700">
-            <a className="block hover:text-[#0a1b33]" href={`tel:${phone.replaceAll(" ", "")}`}>{phone}</a>
-            <a className="block hover:text-[#0a1b33]" href={`mailto:${email}`}>{email}</a>
+            <a className="block hover:text-[#7dd3fc]" href={`tel:${phone.replaceAll(" ", "")}`}>{phone}</a>
+            <a className="block hover:text-[#7dd3fc]" href={`mailto:${email}`}>{email}</a>
             <span className="block">Plasencia, Caceres</span>
           </div>
         </div>
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">Legal</h3>
           <div className="mt-4 space-y-3 text-sm text-slate-700">
-            <a className="block hover:text-[#0a1b33]" href="/aviso-legal">Aviso legal</a>
-            <a className="block hover:text-[#0a1b33]" href="/politica-de-privacidad">Politica de privacidad</a>
-            <a className="block hover:text-[#0a1b33]" href="/politica-de-cookies">Politica de cookies</a>
+            <a className="block hover:text-[#7dd3fc]" href="/aviso-legal">Aviso legal</a>
+            <a className="block hover:text-[#7dd3fc]" href="/politica-de-privacidad">Politica de privacidad</a>
+            <a className="block hover:text-[#7dd3fc]" href="/politica-de-cookies">Politica de cookies</a>
+          </div>
+          <h3 className="mt-8 text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">Horario</h3>
+          <div className="mt-4 space-y-2 text-sm text-slate-700">
+            {businessHours.map(([day, hours]) => (
+              <p key={day} className="flex justify-between gap-4">
+                <span>{day}</span>
+                <span className="text-right font-medium text-[#0a1b33]">{hours}</span>
+              </p>
+            ))}
           </div>
         </div>
       </div>
