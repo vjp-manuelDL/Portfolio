@@ -251,6 +251,7 @@ function Field({
 }
 
 function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 bg-[#f9fafb]/95 backdrop-blur-sm border-b border-slate-200/40">
       <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-5">
@@ -270,15 +271,35 @@ function Header() {
             Presupuesto
           </a>
         </div>
-        <button className="rounded-full border border-slate-200 bg-white p-3 md:hidden" aria-label="Abrir menu">
+        <button
+          onClick={() => setMobileMenuOpen((v) => !v)}
+          className="rounded-full border border-slate-200 bg-white p-3 md:hidden"
+          aria-label="Abrir menu"
+        >
           <Menu className="h-5 w-5" />
         </button>
       </div>
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-slate-200/60 bg-[#f9fafb]/98 px-5 py-4 flex flex-col gap-1">
+          <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="py-2.5 text-sm font-semibold text-slate-600 hover:text-[#7dd3fc]">Servicios</a>
+          <a href="#marcas" onClick={() => setMobileMenuOpen(false)} className="py-2.5 text-sm font-semibold text-slate-600 hover:text-[#7dd3fc]">Marcas</a>
+          <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="py-2.5 text-sm font-semibold text-slate-600 hover:text-[#7dd3fc]">Contacto</a>
+          <div className="mt-2 flex flex-col gap-2 border-t border-slate-200/60 pt-3">
+            <a href={`tel:${phone.replaceAll(" ", "")}`} className="flex items-center justify-center rounded-full bg-[#0a152d] px-4 py-2.5 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200">
+              {phone}
+            </a>
+            <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center rounded-full bg-[#0a152d] px-5 py-2.5 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200">
+              Pedir presupuesto
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
 
 function Hero() {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   return (
     <section className="px-4 pb-14 md:px-8">
       <div className="relative w-full max-w-[1400px] mx-auto rounded-[48px] bg-white border border-slate-200/50 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.03)] overflow-hidden h-[600px] flex flex-col">
@@ -326,7 +347,7 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
-            className="flex items-center bg-white/90 backdrop-blur-2xl px-1.5 py-1.5 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.08)] border border-slate-200/40"
+            className="hidden md:flex items-center bg-white/90 backdrop-blur-2xl px-1.5 py-1.5 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.08)] border border-slate-200/40"
           >
             <a href="#servicios" className="px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]">Servicios</a>
             <a href="/marcas" className="px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]">Marcas</a>
@@ -334,6 +355,24 @@ function Hero() {
               Pedir presupuesto <ChevronRight className="h-3.5 w-3.5" />
             </a>
           </motion.nav>
+          <div className="md:hidden flex flex-col items-center gap-2">
+            <button
+              onClick={() => setMobileNavOpen((v) => !v)}
+              className="rounded-full border border-slate-200/40 bg-white/90 backdrop-blur-2xl p-3 shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+              aria-label="Abrir menu"
+            >
+              <Menu className="h-5 w-5 text-[#0a1b33]" />
+            </button>
+            {mobileNavOpen && (
+              <div className="flex flex-col items-center gap-1 rounded-[20px] bg-white/90 backdrop-blur-2xl px-3 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.08)] border border-slate-200/40">
+                <a href="#servicios" onClick={() => setMobileNavOpen(false)} className="w-full text-center px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]">Servicios</a>
+                <a href="/marcas" onClick={() => setMobileNavOpen(false)} className="w-full text-center px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]">Marcas</a>
+                <a href="#contacto" onClick={() => setMobileNavOpen(false)} className="mt-1 flex items-center gap-1 bg-white px-5 py-2 rounded-full text-[12px] font-semibold text-[#0a1b33] border border-slate-200/60 shadow-sm hover:border-slate-300 hover:text-[#7dd3fc] transition-all">
+                  Pedir presupuesto <ChevronRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <MarqueeScroller />
@@ -369,7 +408,7 @@ export default function Home() {
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Servicios</p>
             <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-[#0a1b33] md:text-5xl">
-              Lo importante explicado sin rodeos.
+              Climatización que funciona. No que promete.
             </h2>
           </div>
           <p className="text-lg leading-8 text-slate-600">
@@ -391,9 +430,9 @@ export default function Home() {
       </section>
       <section className="bg-white py-16">
         <div className="mx-auto grid max-w-[1200px] gap-8 px-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className="grid grid-cols-2 gap-4">
-            <img src="/assets/Index/hombre-sujetando-control-remoto-manos-ajustando-temperatura-aire-acondicionado-montado-aire-acondicionado.jpg" alt="Control de climatizacion" loading="lazy" decoding="async" className="h-72 w-full rounded-[28px] object-cover" />
-            <img src="/assets/Index/tecnico-aire-acondicionado-comprobando-funcionamiento-aire-acondicionado.jpg" alt="Tecnico revisando aire acondicionado" loading="lazy" decoding="async" className="mt-10 h-72 w-full rounded-[28px] object-cover" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <img src="/assets/Index/hombre-sujetando-control-remoto-manos-ajustando-temperatura-aire-acondicionado-montado-aire-acondicionado.jpg" alt="Control de climatizacion" loading="lazy" decoding="async" className="h-72 w-full rounded-[28px] object-cover object-top" />
+            <img src="/assets/Index/tecnico-aire-acondicionado-comprobando-funcionamiento-aire-acondicionado.jpg" alt="Tecnico revisando aire acondicionado" loading="lazy" decoding="async" className="sm:mt-10 h-72 w-full rounded-[28px] object-cover object-top" />
           </div>
           <div>
             <h2 className="font-display text-4xl font-medium tracking-tight text-[#0a1b33]">Confort, consumo y garantia en la misma conversacion.</h2>
