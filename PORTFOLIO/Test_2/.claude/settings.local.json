@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(Select-String \"Video_Index\")",
-      "PowerShell(Copy-Item *)"
-    ]
-  }
-}
