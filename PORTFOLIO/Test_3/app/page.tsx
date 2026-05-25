@@ -13,7 +13,7 @@ import {
   Phone,
   ShieldCheck,
   Snowflake,
-  Wrench
+  Wrench,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { brands } from "@/lib/brands";
@@ -27,7 +27,7 @@ const businessHours = [
   ["Jueves", "9:00-14:00, 16:00-19:00"],
   ["Viernes", "9:00-14:00, 16:00-19:00"],
   ["Sabado", "Cerrado"],
-  ["Domingo", "Cerrado"]
+  ["Domingo", "Cerrado"],
 ];
 
 const services = [
@@ -36,22 +36,22 @@ const services = [
     title: "Instalacion de climatizacion",
     text: "Estudiamos la vivienda o local, calculamos potencia y dejamos el equipo instalado con una terminacion limpia.",
     image:
-      "/assets/Instalaci%C3%B3n/reparador-uniforme-instalando-unidad-exterior-aire-acondicionado-980x653.jpg"
+      "/assets/Instalaci%C3%B3n/reparador-uniforme-instalando-unidad-exterior-aire-acondicionado-980x653.jpg",
   },
   {
     icon: Wrench,
     title: "Reparacion y SAT",
     text: "Diagnostico claro, recambios adecuados y reparaciones para recuperar rendimiento sin cambiar equipos antes de tiempo.",
     image:
-      "/assets/Reparaci%C3%B3n/reparadores-aire-acondicionado-uniforme-azul-estan-revisando-reparando-aire-colgado-pared.jpg"
+      "/assets/Reparaci%C3%B3n/reparadores-aire-acondicionado-uniforme-azul-estan-revisando-reparando-aire-colgado-pared.jpg",
   },
   {
     icon: ShieldCheck,
     title: "Mantenimiento preventivo",
     text: "Limpieza de filtros, revision de presiones, comprobacion electrica y puesta a punto antes de los meses de mas uso.",
     image:
-      "/assets/Mantenimiento/limpieza-aire-acondicionado-hombre-guantes-revisa-filtro-hombre-joven-que-ajusta-sistema-aire-acondicionado.jpg"
-  }
+      "/assets/Mantenimiento/limpieza-aire-acondicionado-hombre-guantes-revisa-filtro-hombre-joven-que-ajusta-sistema-aire-acondicionado.jpg",
+  },
 ];
 
 const featuredBrands = brands.slice(0, 8);
@@ -73,7 +73,7 @@ const initialForm: FormState = {
   subject: "",
   service: "Instalacion",
   message: "",
-  consent: false
+  consent: false,
 };
 
 function countWords(value: string) {
@@ -89,11 +89,13 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
   const errors = useMemo(() => {
     const next: Record<string, string> = {};
     if (!form.name.trim()) next.name = "Indica tu nombre.";
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) next.email = "Escribe un correo valido.";
+    if (!/^\S+@\S+\.\S+$/.test(form.email))
+      next.email = "Escribe un correo valido.";
     if (!form.phone.trim()) next.phone = "Incluye un telefono de contacto.";
     if (!form.subject.trim()) next.subject = "Anade un asunto.";
     if (!form.message.trim()) next.message = "Cuéntanos que necesitas.";
-    if (words > 5000) next.message = "El mensaje supera el limite de 5000 palabras.";
+    if (words > 5000)
+      next.message = "El mensaje supera el limite de 5000 palabras.";
     if (!form.consent) next.consent = "Acepta la politica de privacidad.";
     return next;
   }, [form, words]);
@@ -111,13 +113,13 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
       phone: true,
       subject: true,
       message: true,
-      consent: true
+      consent: true,
     });
 
     if (Object.keys(errors).length) return;
 
     const body = encodeURIComponent(
-      `Nombre: ${form.name}\nTelefono: ${form.phone}\nServicio: ${form.service}\n\n${form.message}`
+      `Nombre: ${form.name}\nTelefono: ${form.phone}\nServicio: ${form.service}\n\n${form.message}`,
     );
     window.location.href = `mailto:${email}?subject=${encodeURIComponent(form.subject)}&body=${body}`;
     setSent(true);
@@ -126,15 +128,17 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
   const inputClass = (field: keyof FormState) =>
     cn(
       "w-full rounded-2xl border bg-white px-4 py-3 text-sm text-[#0a1b33] outline-none transition focus:border-[#0a1b33] focus:ring-4 focus:ring-slate-200",
-      touched[field] && errors[field] ? "border-red-400 bg-red-50/60" : "border-slate-200"
+      touched[field] && errors[field]
+        ? "border-red-400 bg-red-50/60"
+        : "border-slate-200",
     );
 
   return (
     <form
       onSubmit={submit}
       className={cn(
-        "rounded-[32px] border border-slate-200/70 bg-white p-5 shadow-[0_24px_80px_rgba(15,23,42,0.08)]",
-        compact ? "space-y-3" : "space-y-4"
+        "rounded-4xl border border-slate-200/70 bg-white p-5 shadow-[0_24px_80px_rgba(15,23,42,0.08)]",
+        compact ? "space-y-3" : "space-y-4",
       )}
       noValidate
     >
@@ -169,7 +173,7 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
             placeholder="nombre@correo.com"
           />
         </Field>
-        <Field label="Servicio">
+        <Field label="Servicio" error={touched.service ? errors.service : ""}>
           <select
             className={inputClass("service")}
             value={form.service}
@@ -199,7 +203,12 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
           onChange={(event) => update("message", event.target.value)}
           placeholder="Describe el equipo, la estancia, el problema o cuando te vendria bien que contactemos."
         />
-        <div className={cn("mt-2 text-right text-xs", words > 5000 ? "text-red-500" : "text-slate-500")}>
+        <div
+          className={cn(
+            "mt-2 text-right text-xs",
+            words > 5000 ? "text-red-500" : "text-slate-500",
+          )}
+        >
           {words}/5000 palabras
         </div>
       </Field>
@@ -212,12 +221,18 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
           className="mt-1 h-4 w-4 rounded border-slate-300 accent-[#0a1b33]"
         />
         <span>
-          Acepto que Inclima Plasencia use estos datos para responder a mi consulta. Puedes revisar la{" "}
-          <a className="font-semibold text-[#0a1b33] underline transition-colors hover:text-[#7dd3fc]" href="/politica-de-privacidad">
+          Acepto que Inclima Plasencia use estos datos para responder a mi
+          consulta. Puedes revisar la{" "}
+          <a
+            className="font-semibold text-[#0a1b33] underline transition-colors hover:text-[#7dd3fc]"
+            href="/politica-de-privacidad"
+          >
             politica de privacidad
           </a>
           .
-          {touched.consent && errors.consent ? <b className="block text-red-500">{errors.consent}</b> : null}
+          {touched.consent && errors.consent ? (
+            <b className="block text-red-500">{errors.consent}</b>
+          ) : null}
         </span>
       </label>
       <motion.button
@@ -227,7 +242,11 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
       >
         Enviar consulta <ArrowRight className="h-4 w-4" />
       </motion.button>
-      {sent ? <p className="text-center text-sm font-semibold text-emerald-600">Mensaje preparado en tu correo.</p> : null}
+      {sent ? (
+        <p className="text-center text-sm font-semibold text-emerald-600">
+          Mensaje preparado en tu correo.
+        </p>
+      ) : null}
     </form>
   );
 }
@@ -235,7 +254,7 @@ function ContactForm({ compact = false }: { compact?: boolean }) {
 function Field({
   label,
   error,
-  children
+  children,
 }: {
   label: string;
   error?: string;
@@ -243,9 +262,15 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{label}</span>
+      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+        {label}
+      </span>
       {children}
-      {error ? <span className="mt-1.5 block text-xs font-semibold text-red-500">{error}</span> : null}
+      {error ? (
+        <span className="mt-1.5 block text-xs font-semibold text-red-500">
+          {error}
+        </span>
+      ) : null}
     </label>
   );
 }
@@ -256,18 +281,34 @@ function Header() {
     <header className="sticky top-0 z-50 bg-[#f9fafb]/95 backdrop-blur-sm border-b border-slate-200/40">
       <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-5 py-5">
         <a href="#" className="flex items-center gap-3">
-          <img src="/assets/Index/inclima_logo.png" alt="Inclima Plasencia" className="h-11 w-auto" />
+          <img
+            src="/assets/Index/inclima_logo.png"
+            alt="Inclima Plasencia"
+            className="h-11 w-auto"
+          />
         </a>
         <nav className="hidden items-center gap-8 text-sm font-semibold text-slate-600 md:flex">
-          <a href="#servicios" className="hover:text-[#7dd3fc]">Servicios</a>
-          <a href="#marcas" className="hover:text-[#7dd3fc]">Marcas</a>
-          <a href="#contacto" className="hover:text-[#7dd3fc]">Contacto</a>
+          <a href="#servicios" className="hover:text-[#7dd3fc]">
+            Servicios
+          </a>
+          <a href="#marcas" className="hover:text-[#7dd3fc]">
+            Marcas
+          </a>
+          <a href="#contacto" className="hover:text-[#7dd3fc]">
+            Contacto
+          </a>
         </nav>
         <div className="hidden items-center gap-3 md:flex">
-          <a href={`tel:${phone.replaceAll(" ", "")}`} className="rounded-full bg-[#0a152d] px-4 py-2 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200">
+          <a
+            href={`tel:${phone.replaceAll(" ", "")}`}
+            className="rounded-full bg-[#0a152d] px-4 py-2 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200"
+          >
             {phone}
           </a>
-          <a href="#contacto" className="rounded-full bg-[#0a152d] px-5 py-2.5 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200">
+          <a
+            href="#contacto"
+            className="rounded-full bg-[#0a152d] px-5 py-2.5 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200"
+          >
             Presupuesto
           </a>
         </div>
@@ -281,14 +322,39 @@ function Header() {
       </div>
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-slate-200/60 bg-[#f9fafb]/98 px-5 py-4 flex flex-col gap-1">
-          <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="py-2.5 text-sm font-semibold text-slate-600 hover:text-[#7dd3fc]">Servicios</a>
-          <a href="#marcas" onClick={() => setMobileMenuOpen(false)} className="py-2.5 text-sm font-semibold text-slate-600 hover:text-[#7dd3fc]">Marcas</a>
-          <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="py-2.5 text-sm font-semibold text-slate-600 hover:text-[#7dd3fc]">Contacto</a>
+          <a
+            href="#servicios"
+            onClick={() => setMobileMenuOpen(false)}
+            className="py-2.5 text-sm font-semibold text-slate-600 hover:text-[#7dd3fc]"
+          >
+            Servicios
+          </a>
+          <a
+            href="#marcas"
+            onClick={() => setMobileMenuOpen(false)}
+            className="py-2.5 text-sm font-semibold text-slate-600 hover:text-[#7dd3fc]"
+          >
+            Marcas
+          </a>
+          <a
+            href="#contacto"
+            onClick={() => setMobileMenuOpen(false)}
+            className="py-2.5 text-sm font-semibold text-slate-600 hover:text-[#7dd3fc]"
+          >
+            Contacto
+          </a>
           <div className="mt-2 flex flex-col gap-2 border-t border-slate-200/60 pt-3">
-            <a href={`tel:${phone.replaceAll(" ", "")}`} className="flex items-center justify-center rounded-full bg-[#0a152d] px-4 py-2.5 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200">
+            <a
+              href={`tel:${phone.replaceAll(" ", "")}`}
+              className="flex items-center justify-center rounded-full bg-[#0a152d] px-4 py-2.5 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200"
+            >
               {phone}
             </a>
-            <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center rounded-full bg-[#0a152d] px-5 py-2.5 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200">
+            <a
+              href="#contacto"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-center rounded-full bg-[#0a152d] px-5 py-2.5 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200"
+            >
               Pedir presupuesto
             </a>
           </div>
@@ -321,12 +387,20 @@ function Hero() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="z-20 flex-1 px-8 md:px-16 pt-12 md:pt-16 flex flex-col items-start"
         >
-          <img src="/assets/Index/inclima-negro.png" alt="Inclima" className="mb-8 h-12 w-auto rounded bg-white/80 p-2" />
+          <img
+            src="/assets/Index/inclima-negro.png"
+            alt="Inclima"
+            className="mb-8 h-12 w-auto rounded bg-white/80 p-2"
+          />
           <h1 className="font-display text-[42px] md:text-[56px] font-medium tracking-tight text-[#0a1b33] leading-[0.96] max-w-3xl">
-            Climatizacion eficiente<br />para Plasencia
+            Climatizacion eficiente
+            <br />
+            para Plasencia
           </h1>
           <p className="font-sans text-[14px] md:text-[15px] text-[#0a1b33] mt-6 max-w-[520px] leading-7 bg-white/20 rounded-2xl px-4 py-3">
-            Instalamos, reparamos y mantenemos equipos de aire acondicionado y bombas de calor con asesoramiento claro, marcas fiables y atencion directa.
+            Instalamos, reparamos y mantenemos equipos de aire acondicionado y
+            bombas de calor con asesoramiento claro, marcas fiables y atencion
+            directa.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <motion.a
@@ -337,7 +411,10 @@ function Hero() {
             >
               Contactar ahora
             </motion.a>
-            <a href={`mailto:${email}`} className="rounded-full bg-[#0a152d] px-6 py-3 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200">
+            <a
+              href={`mailto:${email}`}
+              className="rounded-full bg-[#0a152d] px-6 py-3 text-sm font-semibold text-[#7dd3fc] transition-colors hover:text-sky-200"
+            >
               {email}
             </a>
           </div>
@@ -349,9 +426,22 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
             className="hidden md:flex items-center bg-white/90 backdrop-blur-2xl px-1.5 py-1.5 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.08)] border border-slate-200/40"
           >
-            <a href="#servicios" className="px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]">Servicios</a>
-            <a href="/marcas" className="px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]">Marcas</a>
-            <a href="#contacto" className="ml-1 flex items-center gap-1 bg-white px-5 py-2 rounded-full text-[12px] font-semibold text-[#0a1b33] border border-slate-200/60 shadow-sm hover:border-slate-300 hover:text-[#7dd3fc] transition-all">
+            <a
+              href="#servicios"
+              className="px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]"
+            >
+              Servicios
+            </a>
+            <a
+              href="/marcas"
+              className="px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]"
+            >
+              Marcas
+            </a>
+            <a
+              href="#contacto"
+              className="ml-1 flex items-center gap-1 bg-white px-5 py-2 rounded-full text-[12px] font-semibold text-[#0a1b33] border border-slate-200/60 shadow-sm hover:border-slate-300 hover:text-[#7dd3fc] transition-all"
+            >
               Pedir presupuesto <ChevronRight className="h-3.5 w-3.5" />
             </a>
           </motion.nav>
@@ -365,9 +455,25 @@ function Hero() {
             </button>
             {mobileNavOpen && (
               <div className="flex flex-col items-center gap-1 rounded-[20px] bg-white/90 backdrop-blur-2xl px-3 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.08)] border border-slate-200/40">
-                <a href="#servicios" onClick={() => setMobileNavOpen(false)} className="w-full text-center px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]">Servicios</a>
-                <a href="/marcas" onClick={() => setMobileNavOpen(false)} className="w-full text-center px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]">Marcas</a>
-                <a href="#contacto" onClick={() => setMobileNavOpen(false)} className="mt-1 flex items-center gap-1 bg-white px-5 py-2 rounded-full text-[12px] font-semibold text-[#0a1b33] border border-slate-200/60 shadow-sm hover:border-slate-300 hover:text-[#7dd3fc] transition-all">
+                <a
+                  href="#servicios"
+                  onClick={() => setMobileNavOpen(false)}
+                  className="w-full text-center px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]"
+                >
+                  Servicios
+                </a>
+                <a
+                  href="/marcas"
+                  onClick={() => setMobileNavOpen(false)}
+                  className="w-full text-center px-4 py-2 text-[12px] font-semibold text-slate-500 hover:text-[#7dd3fc]"
+                >
+                  Marcas
+                </a>
+                <a
+                  href="#contacto"
+                  onClick={() => setMobileNavOpen(false)}
+                  className="mt-1 flex items-center gap-1 bg-white px-5 py-2 rounded-full text-[12px] font-semibold text-[#0a1b33] border border-slate-200/60 shadow-sm hover:border-slate-300 hover:text-[#7dd3fc] transition-all"
+                >
                   Pedir presupuesto <ChevronRight className="h-3.5 w-3.5" />
                 </a>
               </div>
@@ -390,7 +496,13 @@ function MarqueeScroller() {
             className="group relative h-24 w-40 shrink-0 flex items-center justify-center rounded-full bg-white border border-slate-200/60 shadow-sm hover:border-slate-300 transition-all overflow-hidden"
           >
             <div className="absolute inset-0 scale-150 bg-sky-100 opacity-0 transition duration-300 group-hover:scale-100 group-hover:opacity-100" />
-            <img src={brand.src} alt={brand.name} loading="lazy" decoding="async" className="relative z-10 max-h-10 max-w-28 object-contain transition group-hover:scale-105" />
+            <img
+              src={brand.src}
+              alt={brand.name}
+              loading="lazy"
+              decoding="async"
+              className="relative z-10 max-h-10 max-w-28 object-contain transition group-hover:scale-105"
+            />
           </div>
         ))}
       </div>
@@ -406,23 +518,40 @@ export default function Home() {
       <section id="servicios" className="mx-auto max-w-[1200px] px-5 py-16">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Servicios</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
+              Servicios
+            </p>
             <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-[#0a1b33] md:text-5xl">
               Climatización que funciona. No que promete.
             </h2>
           </div>
           <p className="text-lg leading-8 text-slate-600">
-            Inclima trabaja con hogares, oficinas y locales que necesitan confort estable, equipos bien dimensionados y un servicio tecnico que contesta cuando hace falta.
+            Inclima trabaja con hogares, oficinas y locales que necesitan
+            confort estable, equipos bien dimensionados y un servicio tecnico
+            que contesta cuando hace falta.
           </p>
         </div>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {services.map((service) => (
-            <article key={service.title} className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm">
-              <img src={service.image} alt="" loading="lazy" decoding="async" className="h-56 w-full object-cover" />
+            <article
+              key={service.title}
+              className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm"
+            >
+              <img
+                src={service.image}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="h-56 w-full object-cover"
+              />
               <div className="p-6">
                 <service.icon className="mb-5 h-7 w-7 text-[#0a1b33]" />
-                <h3 className="font-display text-2xl font-medium text-[#0a1b33]">{service.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">{service.text}</p>
+                <h3 className="font-display text-2xl font-medium text-[#0a1b33]">
+                  {service.title}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {service.text}
+                </p>
               </div>
             </article>
           ))}
@@ -431,17 +560,31 @@ export default function Home() {
       <section className="bg-white py-16">
         <div className="mx-auto grid max-w-[1200px] gap-8 px-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <img src="/assets/Index/hombre-sujetando-control-remoto-manos-ajustando-temperatura-aire-acondicionado-montado-aire-acondicionado.jpg" alt="Control de climatizacion" loading="lazy" decoding="async" className="h-72 w-full rounded-[28px] object-cover object-top" />
-            <img src="/assets/Index/tecnico-aire-acondicionado-comprobando-funcionamiento-aire-acondicionado.jpg" alt="Tecnico revisando aire acondicionado" loading="lazy" decoding="async" className="sm:mt-10 h-72 w-full rounded-[28px] object-cover object-top" />
+            <img
+              src="/assets/Index/hombre-sujetando-control-remoto-manos-ajustando-temperatura-aire-acondicionado-montado-aire-acondicionado.jpg"
+              alt="Control de climatizacion"
+              loading="lazy"
+              decoding="async"
+              className="h-72 w-full rounded-[28px] object-cover object-top"
+            />
+            <img
+              src="/assets/Index/tecnico-aire-acondicionado-comprobando-funcionamiento-aire-acondicionado.jpg"
+              alt="Tecnico revisando aire acondicionado"
+              loading="lazy"
+              decoding="async"
+              className="sm:mt-10 h-72 w-full rounded-[28px] object-cover object-top"
+            />
           </div>
           <div>
-            <h2 className="font-display text-4xl font-medium tracking-tight text-[#0a1b33]">Confort, consumo y garantia en la misma conversacion.</h2>
+            <h2 className="font-display text-4xl font-medium tracking-tight text-[#0a1b33]">
+              Confort, consumo y garantia en la misma conversacion.
+            </h2>
             <div className="mt-8 space-y-5">
               {[
                 "Presupuesto claro antes de empezar, con recomendacion de potencia y ubicacion.",
                 "Telefono y correo accesibles con un click para no perder consultas.",
                 "Financiacion y documentacion europea visibles sin entorpecer la experiencia.",
-                "Politicas legales revisadas con estructura, finalidad, derechos y contacto."
+                "Politicas legales revisadas con estructura, finalidad, derechos y contacto.",
               ].map((item) => (
                 <div key={item} className="flex gap-3 text-slate-700">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
@@ -455,32 +598,62 @@ export default function Home() {
       <section id="marcas" className="mx-auto max-w-[1200px] px-5 py-16">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <h2 className="font-display text-4xl font-medium tracking-tight text-[#0a1b33]">Marcas con las que trabaja Inclima</h2>
-            <p className="mt-3 max-w-2xl text-slate-600">Equipos domesticos y profesionales de fabricantes reconocidos, para instalar, reparar o mantener con criterio tecnico.</p>
+            <h2 className="font-display text-4xl font-medium tracking-tight text-[#0a1b33]">
+              Marcas con las que trabaja Inclima
+            </h2>
+            <p className="mt-3 max-w-2xl text-slate-600">
+              Equipos domesticos y profesionales de fabricantes reconocidos,
+              para instalar, reparar o mantener con criterio tecnico.
+            </p>
           </div>
-          <a href="/marcas" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#0a1b33] shadow-sm ring-1 ring-slate-200 transition-colors hover:text-[#7dd3fc]">
+          <a
+            href="/marcas"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#0a1b33] shadow-sm ring-1 ring-slate-200 transition-colors hover:text-[#7dd3fc]"
+          >
             Consultar compatibilidad <ArrowRight className="h-4 w-4" />
           </a>
         </div>
         <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
           {featuredBrands.map((brand) => (
-            <div key={brand.src} className="flex h-28 items-center justify-center rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm">
-              <img src={brand.src} alt={brand.name} loading="lazy" decoding="async" className="max-h-12 max-w-full object-contain" />
+            <div
+              key={brand.src}
+              className="flex h-28 items-center justify-center rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm"
+            >
+              <img
+                src={brand.src}
+                alt={brand.name}
+                loading="lazy"
+                decoding="async"
+                className="max-h-12 max-w-full object-contain"
+              />
             </div>
           ))}
         </div>
       </section>
-      <section id="contacto" className="mx-auto grid max-w-[1200px] gap-8 px-5 py-16 lg:grid-cols-[0.85fr_1.15fr]">
+      <section
+        id="contacto"
+        className="mx-auto grid max-w-[1200px] gap-8 px-5 py-16 lg:grid-cols-[0.85fr_1.15fr]"
+      >
         <div className="rounded-[36px] bg-[#0a152d] p-8 text-white">
-          <h2 className="font-display text-4xl font-medium tracking-tight">Contacta con Inclima</h2>
+          <h2 className="font-display text-4xl font-medium tracking-tight">
+            Contacta con Inclima
+          </h2>
           <p className="mt-4 leading-7 text-slate-300">
-            Cuéntales que necesitas y deja tus datos. El formulario avisa si falta algo, marca errores en rojo y prepara el correo con toda la informacion.
+            Cuéntales que necesitas y deja tus datos. El formulario avisa si
+            falta algo, marca errores en rojo y prepara el correo con toda la
+            informacion.
           </p>
           <div className="mt-8 space-y-4 text-sm">
-            <a href={`tel:${phone.replaceAll(" ", "")}`} className="flex items-center gap-3 rounded-2xl bg-white/10 p-4 transition-colors hover:text-[#7dd3fc]">
+            <a
+              href={`tel:${phone.replaceAll(" ", "")}`}
+              className="flex items-center gap-3 rounded-2xl bg-white/10 p-4 transition-colors hover:text-[#7dd3fc]"
+            >
               <Phone className="h-5 w-5" /> {phone}
             </a>
-            <a href={`mailto:${email}`} className="flex items-center gap-3 rounded-2xl bg-white/10 p-4 transition-colors hover:text-[#7dd3fc]">
+            <a
+              href={`mailto:${email}`}
+              className="flex items-center gap-3 rounded-2xl bg-white/10 p-4 transition-colors hover:text-[#7dd3fc]"
+            >
               <Mail className="h-5 w-5" /> {email}
             </a>
             <div className="flex items-center gap-3 rounded-2xl bg-white/10 p-4">
@@ -490,7 +663,13 @@ export default function Home() {
               <Clock className="h-5 w-5" /> L-V 9:00-14:00 y 16:00-19:00
             </div>
           </div>
-          <img src="/assets/Contacto/mujer-joven-feliz-ojos-cerrados-sentado-sofa-aire-acondicionado-ajustando-temperatura-confortable-control-remoto-casa-moderna.jpg" alt="Confort en casa" loading="lazy" decoding="async" className="mt-8 h-56 w-full rounded-[28px] object-cover" />
+          <img
+            src="/assets/Contacto/mujer-joven-feliz-ojos-cerrados-sentado-sofa-aire-acondicionado-ajustando-temperatura-confortable-control-remoto-casa-moderna.jpg"
+            alt="Confort en casa"
+            loading="lazy"
+            decoding="async"
+            className="mt-8 h-56 w-full rounded-[28px] object-cover"
+          />
         </div>
         <ContactForm />
       </section>
@@ -504,43 +683,87 @@ function Footer() {
     <footer className="mt-10 bg-white">
       <div className="mx-auto grid max-w-[1200px] gap-8 px-5 py-12 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
         <div>
-          <img src="/assets/Index/inclima_logo.png" alt="Inclima Plasencia" className="h-12 w-auto" />
+          <img
+            src="/assets/Index/inclima_logo.png"
+            alt="Inclima Plasencia"
+            className="h-12 w-auto"
+          />
           <p className="mt-5 max-w-md text-sm leading-6 text-slate-600">
-            Instalacion, reparacion y mantenimiento de climatizacion en Plasencia con un sitio mas visual, util y preparado para convertir consultas reales.
+            Instalacion, reparacion y mantenimiento de climatizacion en
+            Plasencia con un sitio mas visual, util y preparado para convertir
+            consultas reales.
           </p>
           <div className="mt-5 flex gap-3">
-            <img src="/assets/Index/NEGROlogo-financiacion-ue-nextgenerationue.png" alt="Next Generation EU" className="h-10 w-auto object-contain" />
-            <img src="/assets/Index/NEGROlogo-plan-de-recuperacion-transformacion-y-resiliencia.png" alt="Plan de recuperacion" loading="lazy" decoding="async" className="h-10 w-auto object-contain" />
+            <img
+              src="/assets/Index/NEGROlogo-financiacion-ue-nextgenerationue.png"
+              alt="Next Generation EU"
+              className="h-10 w-auto object-contain"
+            />
+            <img
+              src="/assets/Index/NEGROlogo-plan-de-recuperacion-transformacion-y-resiliencia.png"
+              alt="Plan de recuperacion"
+              loading="lazy"
+              decoding="async"
+              className="h-10 w-auto object-contain"
+            />
           </div>
         </div>
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">Contacto</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">
+            Contacto
+          </h3>
           <div className="mt-4 space-y-3 text-sm text-slate-700">
-            <a className="block hover:text-[#7dd3fc]" href={`tel:${phone.replaceAll(" ", "")}`}>{phone}</a>
-            <a className="block hover:text-[#7dd3fc]" href={`mailto:${email}`}>{email}</a>
+            <a
+              className="block hover:text-[#7dd3fc]"
+              href={`tel:${phone.replaceAll(" ", "")}`}
+            >
+              {phone}
+            </a>
+            <a className="block hover:text-[#7dd3fc]" href={`mailto:${email}`}>
+              {email}
+            </a>
             <span className="block">Plasencia, Caceres</span>
           </div>
         </div>
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">Legal</h3>
+          <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">
+            Legal
+          </h3>
           <div className="mt-4 space-y-3 text-sm text-slate-700">
-            <a className="block hover:text-[#7dd3fc]" href="/aviso-legal">Aviso legal</a>
-            <a className="block hover:text-[#7dd3fc]" href="/politica-de-privacidad">Politica de privacidad</a>
-            <a className="block hover:text-[#7dd3fc]" href="/politica-de-cookies">Politica de cookies</a>
+            <a className="block hover:text-[#7dd3fc]" href="/aviso-legal">
+              Aviso legal
+            </a>
+            <a
+              className="block hover:text-[#7dd3fc]"
+              href="/politica-de-privacidad"
+            >
+              Politica de privacidad
+            </a>
+            <a
+              className="block hover:text-[#7dd3fc]"
+              href="/politica-de-cookies"
+            >
+              Politica de cookies
+            </a>
           </div>
-          <h3 className="mt-8 text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">Horario</h3>
+          <h3 className="mt-8 text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">
+            Horario
+          </h3>
           <div className="mt-4 space-y-2 text-sm text-slate-700">
             {businessHours.map(([day, hours]) => (
               <p key={day} className="flex justify-between gap-4">
                 <span>{day}</span>
-                <span className="text-right font-medium text-[#0a1b33]">{hours}</span>
+                <span className="text-right font-medium text-[#0a1b33]">
+                  {hours}
+                </span>
               </p>
             ))}
           </div>
         </div>
       </div>
       <div className="border-t border-slate-200 px-5 py-5 text-center text-xs text-slate-500">
-        © 2026 Inclima Plasencia. Web modernizada para una experiencia mas clara y accesible.
+        © 2026 Inclima Plasencia. Web modernizada para una experiencia mas clara
+        y accesible.
       </div>
     </footer>
   );
