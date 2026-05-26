@@ -17,3 +17,5 @@ ENV/
 # Sistema
 .DS_Store
 )
+.vercel
+.env*
