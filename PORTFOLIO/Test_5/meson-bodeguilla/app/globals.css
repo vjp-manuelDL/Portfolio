@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --bg-deep: #080503;
+  --bg-mid:  #0d0805;
+  --accent:  #f59e0b;
+  --cream:   #fef3c7;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+/* Hero typography */
+.hero-title {
+  font-family: var(--font-playfair), Georgia, serif;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+
+.serif {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+/* Dotted menu price separator */
+.menu-dots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(245, 158, 11, 0.22);
+  margin: 0 8px;
+  position: relative;
+  top: -4px;
+}
+
+/* Gallery zoom on hover */
+.gallery-item {
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+.gallery-item img {
+  transition: transform 0.7s ease;
+}
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+/* Fade-up entrance animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.9s ease both;
+}
+.delay-1 { animation-delay: 0.18s; }
+.delay-2 { animation-delay: 0.36s; }
+.delay-3 { animation-delay: 0.52s; }
+.delay-4 { animation-delay: 0.68s; }
